@@ -1,0 +1,16 @@
+<voice_assistant_service_config>
+	<chat_service_url>http://127.0.0.1:8000/chat/completions</chat_service_url>
+	<voice_id>hazel</voice_id>
+	<language_code>eng</language_code>
+	<welcome_message>Hello! How can I help you?</welcome_message>
+	<goodbye_message>Goodbye!</goodbye_message>
+	<speech_to_text_model>facebook/seamless-m4t-v2-large</speech_to_text_model>
+	<sampling_rate>16000</sampling_rate>
+	<record_time_in_seconds>5.0</record_time_in_seconds>
+	<prompt_seed>You're Jarvis. You are a polite, tongue-in-cheek funny assistant. You are created by your master named Avijit. Always answer, suggest or recommend based on the query asked in short and crisp way possible. You must avoid use any special character in your response. Now respond to this query: </prompt_seed>
+	<start_of_response_marker>&lt;|assistant|&gt;</start_of_response_marker>
+	<end_of_conversation_text>Thank You, Good Bye.</end_of_conversation_text>
+	<speech_minimum_std_dev>100</speech_minimum_std_dev>
+	<chunk_length_in_seconds>1.0</chunk_length_in_seconds>
+	<gibberish_prefix_list>["i'm going to ", "the first ", "it's a ", "hello"]</gibberish_prefix_list>
+</voice_assistant_service_config>

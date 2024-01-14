@@ -60,6 +60,8 @@ def goodbye(engine, config):
 def play_message(message, engine, config):
     # Set the voice
     voices = engine.getProperty('voices')
+    for voice in voices:
+        logging.info(voice.id.upper())
     chosen_voice_ids = []
     available_voice_ids = []
     for voice in voices:
@@ -196,7 +198,15 @@ def play_audio(msg_arr):  # Cf. https://lliçons.jutge.org/upc-python-cookbook/s
 
 def send_request_to_chat_service(config, message):
     prompt = f"{config.prompt_seed}\n{message}"
-    data_dict = {"prompt": prompt}
+    data_dict = {
+    "model": "gpt-3.5-turbo",
+    "messages": [
+        {
+        "role": "user",
+        "content": prompt
+        }
+    ]
+    }
     session = requests.Session()
     result = session.post(
         config.chat_service_url,
@@ -204,9 +214,10 @@ def send_request_to_chat_service(config, message):
     )
     if result.status_code != 200:
         logging.error(f"voice_assistant_service.send_request_to_chat_service(): The result status code ({result.status_code}) is not 200")
-
+    result_json = result.json()
+    logging.info(result_json)
     # Find the beginning of the useful message
-    response = trim_response(result.text, config.start_of_response_marker)
+    response = result_json["choices"][0]["message"]["content"]
 
     return response
 
